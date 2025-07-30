@@ -1,0 +1,52 @@
+[tool.poetry]
+name = "fastapi_zero"
+version = "0.1.0"
+description = "Projeto backend em Python com FastApi"
+authors = ["Jaqueline de Almeida <jaqueshanti@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = {extras = ["standard"], version = "^0.116.1"}
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.12.5"
+pytest = "^8.4.1"
+pytest-cov = "^6.2.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+#Configuração do Ruff
+[tool.ruff]
+line-length = 79 # Define the maximum line length for Ruff
+extend-exclude = ['migrations'] #Exclude folder migrations
+
+[tool.ruff.lint] # Define the linting rules for Ruff
+select = [
+    "F",  # Pyflakes
+    "E",  # Pycodestyle
+    "W",  # Pyflakes warnings
+    "C",  # Complexity
+    "T",  # Typing
+    "I",  # Import errors
+]
+
+[tool.ruff.format] # Define the formatting rules for Ruff
+preview = true
+quote-style = 'single' # Use single quotes for strings
+
+[tool.pytest.ini_options]
+pythonpath = "."
+addopts = '-p no:warnings'
+
+[tool.taskipy.tasks]
+lint = 'ruff check'
+format = 'ruff format'
+run = 'fastapi dev fastapi_zero/app.py'
+test = 'pytest -s -x --cov=fastapi_zero -vv'
+pre_format = 'ruff check --fix'
+pre_test = 'task lint'
+post_test = 'coverage html'
