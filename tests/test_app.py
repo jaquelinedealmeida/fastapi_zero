@@ -17,3 +17,11 @@ def test_root():
 
     assert response.json() == {'message': 'Hello, World'}
     assert response.status_code == HTTPStatus.OK
+
+def test_html():
+    client = TestClient(app)
+
+    response = client.get('/html')
+
+    assert response.status_code == HTTPStatus.OK
+    assert '<h1>Olá, mundo</h1>' in response.text
