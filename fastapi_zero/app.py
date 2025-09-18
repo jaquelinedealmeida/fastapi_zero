@@ -1,27 +1,21 @@
-from fastapi import FastAPI
 from http import HTTPStatus
 
-from fastapi_zero.schemas import Message
+from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
+
+from fastapi_zero.schemas import Message
 
 app = FastAPI(title='Minha API')
 
 
-@app.get(
-    '/', 
-    status_code=HTTPStatus.OK,
-    response_model=Message
-)
+@app.get('/', status_code=HTTPStatus.OK, response_model=Message)
 def read_root():
-    return {'message':'Hello, World'}
+    return {'message': 'Hello, World'}
 
-@app.get(
-    '/html', 
-    status_code=HTTPStatus.OK,
-    response_class=HTMLResponse
-)
+
+@app.get('/html', status_code=HTTPStatus.OK, response_class=HTMLResponse)
 def read_html():
-    return"""
+    return """
      <html>
         <head>
         <title>Minha API</title>
@@ -31,4 +25,3 @@ def read_html():
         </head>
      </html>
     """
-
