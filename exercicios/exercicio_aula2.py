@@ -1,17 +1,14 @@
-from fastapi import FastAPI
 from http import HTTPStatus
 
+from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 
 app = FastAPI(title='Minha API')
 
-@app.get(
-    '/html', 
-    status_code=HTTPStatus.OK,
-    response_class=HTMLResponse
-)
+
+@app.get('/html', status_code=HTTPStatus.OK, response_class=HTMLResponse)
 def read_html():
-    return"""
+    return """
      <html>
         <head>
         <title>Minha API</title>
@@ -21,4 +18,3 @@ def read_html():
         </head>
      </html>
     """
-
